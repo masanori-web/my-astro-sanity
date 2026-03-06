@@ -1,0 +1,22 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import PostCard from "../../components/cards/PostCard.astro";
+import Pagination from "../../components/common/Pagination.astro";
+import { fetchNewsPosts } from "../../lib/sanity/fetchers";
+
+const posts = await fetchNewsPosts();
+---
+
+<PageLayout
+  title="お知らせ"
+  description="休診情報、外来スケジュール、採用やイベントに関する更新情報を掲載しています。"
+  path="/news/"
+  breadcrumbs={[{ label: "お知らせ" }]}
+>
+  <section>
+    <div class="grid-3">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+    <Pagination currentPage={1} totalPages={1} basePath="/news/" />
+  </section>
+</PageLayout>

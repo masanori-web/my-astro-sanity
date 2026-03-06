@@ -1,0 +1,65 @@
+---
+import { siteConfig } from "../../lib/site";
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-title">{siteConfig.name}</div>
+      <p>{siteConfig.description}</p>
+    </div>
+    <div class="footer-meta">
+      <span>TEL {siteConfig.contact.phone}</span>
+      <span>{siteConfig.contact.hours}</span>
+      <span>{siteConfig.contact.address}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding: 28px 0 48px;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 28px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: #13233c;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .footer-title {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .footer-inner p {
+    max-width: 520px;
+    margin: 8px 0 0;
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.8;
+  }
+
+  .footer-meta {
+    display: grid;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.76);
+    text-align: right;
+  }
+
+  @media (max-width: 960px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: start;
+    }
+
+    .footer-meta {
+      text-align: left;
+    }
+  }
+</style>

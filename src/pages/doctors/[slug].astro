@@ -1,0 +1,84 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import PortableTextRenderer from "../../components/portableText/PortableTextRenderer.astro";
+import PostCard from "../../components/cards/PostCard.astro";
+import { imageUrlOrFallback } from "../../lib/sanity/image";
+import { fetchDoctors } from "../../lib/sanity/fetchers";
+
+export async function getStaticPaths() {
+  const doctors = await fetchDoctors();
+  return doctors.map((doctor) => ({
+    params: { slug: doctor.slug },
+    props: { doctor },
+  }));
+}
+
+const { doctor } = Astro.props;
+const imageSrc = imageUrlOrFallback(doctor.image, "/images/placeholders/doctor.svg");
+---
+
+<PageLayout
+  title={doctor.name}
+  description={doctor.specialties.join(" / ") || "担当分野を準備中です。"}
+  path={`/doctors/${doctor.slug}/`}
+  breadcrumbs={[
+    { label: "医師紹介", href: "/doctors/" },
+    { label: doctor.name },
+  ]}
+>
+  <section class="doctor-profile surface">
+    <img src={imageSrc} alt={doctor.name} />
+    <div>
+      <div class="eyebrow">Specialties</div>
+      <h2>{doctor.specialties.join(" / ") || "専門分野情報を準備中です。"}</h2>
+      {doctor.bio ? (
+        <PortableTextRenderer value={doctor.bio} />
+      ) : (
+        <p class="richtext">プロフィール情報は現在準備中です。</p>
+      )}
+    </div>
+  </section>
+
+  <section style="margin-top: 24px;">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Related News</div>
+        <h2>関連するお知らせ</h2>
+      </div>
+      <p>担当医に関連する記事や更新情報をまとめています。</p>
+    </div>
+
+    <div class="grid-3">
+      {doctor.posts.length > 0 ? doctor.posts.map((post) => <PostCard post={post} />) : <p>関連情報は準備中です。</p>}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .doctor-profile {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .doctor-profile img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    background: var(--color-surface-alt);
+  }
+
+  .doctor-profile h2 {
+    margin: 16px 0 14px;
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 960px) {
+    .doctor-profile {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import DepartmentCard from "../../components/cards/DepartmentCard.astro";
+import { fetchDepartments } from "../../lib/sanity/fetchers";
+
+const departments = await fetchDepartments();
+---
+
+<PageLayout
+  title="診療科一覧"
+  description="診療科ごとの役割と関連情報を一覧化しています。"
+  path="/departments/"
+  breadcrumbs={[{ label: "診療科一覧" }]}
+>
+  <section class="grid-3">
+    {departments.map((department) => <DepartmentCard department={department} />)}
+  </section>
+</PageLayout>

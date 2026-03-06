@@ -1,0 +1,15 @@
+---
+import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "./portableTextComponents";
+
+interface Props {
+  value?: unknown[];
+  className?: string;
+}
+
+const { value = [], className = "richtext" } = Astro.props;
+---
+
+<div class={className}>
+  <PortableText value={value} components={portableTextComponents} />
+</div>

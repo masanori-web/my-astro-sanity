@@ -1,0 +1,51 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "../components/common/Breadcrumbs.astro";
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  path?: string;
+  breadcrumbs?: Crumb[];
+}
+
+const { title, description, path, breadcrumbs = [] } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} path={path}>
+  <main class="container page-section">
+    {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+    <section class="surface page-hero">
+      <div class="eyebrow">Information</div>
+      <h1>{title}</h1>
+      {description && <p>{description}</p>}
+    </section>
+    <slot />
+  </main>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+
+  .page-hero h1 {
+    margin: 16px 0 12px;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .page-hero p {
+    max-width: 720px;
+    margin: 0;
+    color: var(--color-muted);
+    line-height: 1.8;
+  }
+</style>

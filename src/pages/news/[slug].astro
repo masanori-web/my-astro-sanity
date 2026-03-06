@@ -1,0 +1,41 @@
+---
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import PortableTextRenderer from "../../components/portableText/PortableTextRenderer.astro";
+import { imageUrlOrFallback } from "../../lib/sanity/image";
+import { fetchNewsPosts } from "../../lib/sanity/fetchers";
+
+export async function getStaticPaths() {
+  const posts = await fetchNewsPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const heroImage = imageUrlOrFallback(post.mainImage, "/images/placeholders/news.svg");
+---
+
+<ArticleLayout
+  title={post.title}
+  description={post.excerpt}
+  path={`/news/${post.slug}/`}
+  publishedAt={post.publishedAt}
+  breadcrumbs={[
+    { label: "お知らせ", href: "/news/" },
+    { label: post.title },
+  ]}
+>
+  <img class="article-image" src={heroImage} alt={post.title} />
+  <PortableTextRenderer value={post.body} />
+</ArticleLayout>
+
+<style>
+  .article-image {
+    width: 100%;
+    margin-bottom: 28px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+</style>

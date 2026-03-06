@@ -1,0 +1,130 @@
+---
+import { siteConfig } from "../../lib/site";
+import type { Department, Doctor, NewsPost } from "../../lib/sanity/types";
+
+interface Props {
+  featuredPost?: NewsPost;
+  departments: Department[];
+  doctors: Doctor[];
+}
+
+const { featuredPost, departments, doctors } = Astro.props;
+---
+
+<section class="hero page-section">
+  <div class="container hero-grid">
+    <div class="hero-copy surface">
+      <div class="eyebrow">Regional Healthcare Portal</div>
+      <h1>地域に必要な医療情報を、迷わず見つけられるサイトへ。</h1>
+      <p>
+        受診前に知りたいことを整理し、お知らせ、診療科、医師紹介、採用情報まで一貫した導線でつなぐ構成です。
+      </p>
+
+      <div class="button-row">
+        <a class="button button-primary" href="/departments/">診療科を見る</a>
+        <a class="button button-secondary" href="/contact">お問い合わせ</a>
+      </div>
+
+      <div class="stats">
+        <div>
+          <strong>{departments.length}</strong>
+          <span>診療科</span>
+        </div>
+        <div>
+          <strong>{doctors.length}</strong>
+          <span>医師情報</span>
+        </div>
+        <div>
+          <strong>{siteConfig.contact.phone}</strong>
+          <span>代表電話</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-panel surface">
+      <div class="eyebrow">Latest Update</div>
+      <h2>{featuredPost?.title ?? "最新のお知らせを掲載します"}</h2>
+      <p>{featuredPost?.excerpt ?? siteConfig.description}</p>
+      <a class="button button-primary" href={featuredPost ? `/news/${featuredPost.slug}/` : "/news/"}>
+        お知らせ一覧へ
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
+    gap: 20px;
+  }
+
+  .hero-copy,
+  .hero-panel {
+    padding: 32px;
+  }
+
+  .hero-copy h1 {
+    margin: 18px 0 14px;
+    font-size: clamp(42px, 7vw, 78px);
+    line-height: 0.96;
+    letter-spacing: -0.06em;
+    max-width: 12ch;
+  }
+
+  .hero-copy p,
+  .hero-panel p {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: 1.85;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .stats div {
+    padding: 18px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-alt);
+  }
+
+  .stats strong {
+    display: block;
+    font-size: 22px;
+  }
+
+  .stats span {
+    color: var(--color-muted);
+    font-size: 13px;
+  }
+
+  .hero-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    min-height: 100%;
+  }
+
+  .hero-panel h2 {
+    margin: 16px 0 12px;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-panel .button {
+    margin-top: 24px;
+    align-self: start;
+  }
+
+  @media (max-width: 960px) {
+    .hero-grid,
+    .stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

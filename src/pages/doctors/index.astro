@@ -1,0 +1,18 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import DoctorCard from "../../components/cards/DoctorCard.astro";
+import { fetchDoctors } from "../../lib/sanity/fetchers";
+
+const doctors = await fetchDoctors();
+---
+
+<PageLayout
+  title="医師紹介"
+  description="担当分野や関連情報とあわせて医師情報を掲載しています。"
+  path="/doctors/"
+  breadcrumbs={[{ label: "医師紹介" }]}
+>
+  <section class="grid-3">
+    {doctors.map((doctor) => <DoctorCard doctor={doctor} />)}
+  </section>
+</PageLayout>

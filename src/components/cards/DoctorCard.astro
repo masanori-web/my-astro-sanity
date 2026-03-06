@@ -1,0 +1,56 @@
+---
+import { imageUrlOrFallback } from "../../lib/sanity/image";
+import type { Doctor } from "../../lib/sanity/types";
+
+interface Props {
+  doctor: Doctor;
+}
+
+const { doctor } = Astro.props;
+const imageSrc = imageUrlOrFallback(doctor.image, "/images/placeholders/doctor.svg");
+---
+
+<article class="doctor-card">
+  <img src={imageSrc} alt={doctor.name} />
+  <div class="doctor-body">
+    <div class="doctor-meta">{doctor.postCount} 件の関連情報</div>
+    <h3><a href={`/doctors/${doctor.slug}/`}>{doctor.name}</a></h3>
+    <p>{doctor.specialties.join(" / ") || "専門分野は準備中です。"}</p>
+  </div>
+</article>
+
+<style>
+  .doctor-card {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.86);
+  }
+
+  .doctor-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: var(--color-surface-alt);
+  }
+
+  .doctor-body {
+    padding: 20px;
+  }
+
+  .doctor-meta {
+    color: var(--color-muted);
+    font-size: 13px;
+  }
+
+  .doctor-card h3 {
+    margin: 10px 0;
+    font-size: 24px;
+  }
+
+  .doctor-card p {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: 1.8;
+  }
+</style>

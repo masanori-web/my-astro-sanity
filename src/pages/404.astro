@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="ページが見つかりません" noindex={true}>
+  <main class="container page-section">
+    <section class="surface not-found">
+      <div class="eyebrow">404</div>
+      <h1>ページが見つかりません</h1>
+      <p>URL が変更されたか、公開が終了している可能性があります。</p>
+      <a class="button button-primary" href="/">トップへ戻る</a>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding: 40px;
+    text-align: center;
+  }
+
+  .not-found h1 {
+    margin: 16px 0 12px;
+    font-size: clamp(36px, 5vw, 60px);
+  }
+
+  .not-found p {
+    margin: 0 0 24px;
+    color: var(--color-muted);
+  }
+</style>

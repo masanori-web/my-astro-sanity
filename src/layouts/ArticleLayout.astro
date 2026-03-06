@@ -1,0 +1,60 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "../components/common/Breadcrumbs.astro";
+import { formatDate } from "../lib/format";
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  path?: string;
+  publishedAt?: string;
+  breadcrumbs?: Crumb[];
+}
+
+const { title, description, path, publishedAt, breadcrumbs = [] } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} path={path}>
+  <main class="container page-section">
+    {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+    <article class="surface article-shell">
+      <div class="eyebrow">News Article</div>
+      <h1>{title}</h1>
+      <div class="meta">
+        {publishedAt && <span>{formatDate(publishedAt)}</span>}
+      </div>
+      {description && <p class="lede">{description}</p>}
+      <slot />
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .article-shell {
+    padding: 32px;
+  }
+
+  .article-shell h1 {
+    margin: 18px 0 12px;
+    font-size: clamp(34px, 5vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.05em;
+  }
+
+  .meta {
+    margin-bottom: 20px;
+    color: var(--color-muted);
+  }
+
+  .lede {
+    margin: 0 0 28px;
+    color: var(--color-muted);
+    font-size: 18px;
+    line-height: 1.8;
+  }
+</style>

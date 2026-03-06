@@ -1,0 +1,60 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+---
+
+<PageLayout
+  title="採用情報"
+  description="地域医療を支えるスタッフ採用に関する情報を掲載しています。"
+  path="/recruit/"
+  breadcrumbs={[{ label: "採用情報" }]}
+>
+  <section class="surface recruit-grid">
+    <article>
+      <h2>募集職種</h2>
+      <ul>
+        <li>看護師</li>
+        <li>医療事務</li>
+        <li>リハビリスタッフ</li>
+      </ul>
+    </article>
+    <article>
+      <h2>働く環境</h2>
+      <p>チーム医療と継続的な教育体制を前提に、長く働ける環境づくりを進めています。</p>
+    </article>
+  </section>
+
+  <CTASection
+    title="採用に関するお問い合わせを受け付けています。"
+    body="求人票だけでは伝わりにくい勤務条件や見学希望についてもご相談ください。"
+    primaryHref="/contact"
+    primaryLabel="応募・お問い合わせ"
+  />
+</PageLayout>
+
+<style>
+  .recruit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .recruit-grid h2 {
+    margin: 0 0 12px;
+    font-size: 28px;
+  }
+
+  .recruit-grid p,
+  .recruit-grid ul {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 960px) {
+    .recruit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

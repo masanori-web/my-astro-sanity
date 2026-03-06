@@ -1,0 +1,49 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  basePath: string;
+}
+
+const { currentPage, totalPages, basePath } = Astro.props;
+const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+---
+
+{totalPages > 1 && (
+  <nav class="pagination" aria-label="Pagination">
+    {pages.map((page) => (
+      <a
+        href={page === 1 ? basePath : `${basePath}?page=${page}`}
+        class:list={[page === currentPage && "is-active"]}
+      >
+        {page}
+      </a>
+    ))}
+  </nav>
+)}
+
+<style>
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.78);
+    font-weight: 700;
+  }
+
+  .pagination a.is-active {
+    background: var(--color-primary);
+    color: white;
+  }
+</style>

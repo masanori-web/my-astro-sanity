@@ -1,0 +1,71 @@
+---
+import { imageUrlOrFallback } from "../../lib/sanity/image";
+import { formatDate } from "../../lib/format";
+import type { NewsPost } from "../../lib/sanity/types";
+
+interface Props {
+  post: NewsPost;
+}
+
+const { post } = Astro.props;
+const imageSrc = imageUrlOrFallback(post.mainImage, "/images/placeholders/news.svg");
+---
+
+<article class="post-card">
+  <a href={`/news/${post.slug}/`} class="post-link">
+    <img src={imageSrc} alt={post.title} />
+    <div class="post-body">
+      <div class="post-meta">
+        {post.publishedAt && <span>{formatDate(post.publishedAt)}</span>}
+        {post.categories[0] && <span>{post.categories[0].title}</span>}
+      </div>
+      <h3>{post.title}</h3>
+      <p>{post.excerpt || "詳細は記事ページでご確認ください。"}</p>
+    </div>
+  </a>
+</article>
+
+<style>
+  .post-card {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .post-link {
+    display: block;
+  }
+
+  .post-card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .post-body {
+    padding: 20px;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--color-muted);
+    font-size: 13px;
+  }
+
+  .post-body h3 {
+    margin: 12px 0 10px;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+
+  .post-body p {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: 1.8;
+  }
+</style>

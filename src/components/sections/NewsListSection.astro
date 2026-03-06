@@ -1,0 +1,32 @@
+---
+import PostCard from "../cards/PostCard.astro";
+import type { NewsPost } from "../../lib/sanity/types";
+
+interface Props {
+  title?: string;
+  description?: string;
+  posts: NewsPost[];
+}
+
+const {
+  title = "お知らせ",
+  description = "休診情報、外来案内、採用関連など最新情報を掲載しています。",
+  posts,
+} = Astro.props;
+---
+
+<section class="page-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">News</div>
+        <h2>{title}</h2>
+      </div>
+      <p>{description}</p>
+    </div>
+
+    <div class="grid-3">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,50 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { siteConfig } from "../lib/site";
+---
+
+<PageLayout
+  title="お問い合わせ"
+  description="受診、採用、広報に関するご相談窓口です。"
+  path="/contact"
+  breadcrumbs={[{ label: "お問い合わせ" }]}
+>
+  <section class="surface contact-grid">
+    <article>
+      <h2>代表電話</h2>
+      <p>{siteConfig.contact.phone}</p>
+      <p>{siteConfig.contact.hours}</p>
+    </article>
+    <article>
+      <h2>メール</h2>
+      <p>info@example.jp</p>
+      <p>折り返しのご連絡まで数営業日かかる場合があります。</p>
+    </article>
+  </section>
+</PageLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .contact-grid h2 {
+    margin: 0 0 12px;
+    font-size: 28px;
+  }
+
+  .contact-grid p {
+    margin: 0 0 10px;
+    color: var(--color-muted);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 960px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

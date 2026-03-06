@@ -1,0 +1,39 @@
+.richtext {
+  color: var(--color-text);
+  line-height: 1.9;
+}
+
+.richtext h2,
+.richtext h3,
+.richtext h4 {
+  margin: 1.8em 0 0.6em;
+  line-height: 1.2;
+}
+
+.richtext p,
+.richtext ul,
+.richtext blockquote {
+  margin: 0 0 1em;
+}
+
+.richtext ul {
+  padding-left: 1.2em;
+}
+
+.richtext a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.richtext blockquote {
+  padding: 18px 20px;
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-surface-alt);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--color-muted);
+}
+
+.richtext img {
+  margin: 24px 0;
+  border-radius: var(--radius-sm);
+}

@@ -1,0 +1,77 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import PostCard from "../../components/cards/PostCard.astro";
+import { fetchDepartments } from "../../lib/sanity/fetchers";
+
+export async function getStaticPaths() {
+  const departments = await fetchDepartments();
+  return departments.map((department) => ({
+    params: { slug: department.slug },
+    props: { department },
+  }));
+}
+
+const { department } = Astro.props;
+---
+
+<PageLayout
+  title={department.title}
+  description={department.description}
+  path={`/departments/${department.slug}/`}
+  breadcrumbs={[
+    { label: "診療科一覧", href: "/departments/" },
+    { label: department.title },
+  ]}
+>
+  <section class="surface summary">
+    <div>
+      <strong>{department.postCount}</strong>
+      <span>関連お知らせ</span>
+    </div>
+    <div>
+      <strong>{department.latestPost?.title ?? "更新準備中"}</strong>
+      <span>最新情報</span>
+    </div>
+  </section>
+
+  <section style="margin-top: 24px;">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Related News</div>
+        <h2>関連するお知らせ</h2>
+      </div>
+      <p>診療科に紐づく更新情報をまとめて確認できます。</p>
+    </div>
+
+    <div class="grid-3">
+      {department.posts.length > 0
+        ? department.posts.map((post) => <PostCard post={post} />)
+        : <p>現在掲載中のお知らせはありません。</p>}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .summary strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 26px;
+  }
+
+  .summary span {
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 960px) {
+    .summary {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

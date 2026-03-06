@@ -1,0 +1,49 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { siteConfig } from "../lib/site";
+---
+
+<PageLayout
+  title="アクセス"
+  description="所在地、連絡先、来院時の基本情報を掲載しています。"
+  path="/access"
+  breadcrumbs={[{ label: "アクセス" }]}
+>
+  <section class="surface access-grid">
+    <article>
+      <h2>所在地</h2>
+      <p>{siteConfig.contact.address}</p>
+    </article>
+    <article>
+      <h2>代表連絡先</h2>
+      <p>{siteConfig.contact.phone}</p>
+      <p>{siteConfig.contact.hours}</p>
+    </article>
+  </section>
+</PageLayout>
+
+<style>
+  .access-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .access-grid h2 {
+    margin: 0 0 12px;
+    font-size: 28px;
+  }
+
+  .access-grid p {
+    margin: 0 0 10px;
+    color: var(--color-muted);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 960px) {
+    .access-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

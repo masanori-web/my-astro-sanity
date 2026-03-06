@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Doctor Placeholder</title>
+  <desc id="desc">Placeholder portrait for doctor profile.</desc>
+  <rect width="800" height="1000" fill="#eaf3ff" />
+  <circle cx="400" cy="320" r="150" fill="#c5dcf8" />
+  <rect x="210" y="500" width="380" height="300" rx="110" fill="#1565c0" opacity="0.28" />
+  <rect x="260" y="610" width="280" height="150" rx="70" fill="#ffffff" opacity="0.88" />
+</svg>
