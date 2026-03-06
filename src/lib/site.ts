@@ -22,7 +22,7 @@ const sanityProjectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? import.meta.
 
 export const siteConfig = {
   appEnv,
-  name: import.meta.env.PUBLIC_SITE_NAME ?? "Rakuwa Medical Center",
+  name: import.meta.env.PUBLIC_SITE_NAME ?? "Medical Center",
   description:
     import.meta.env.PUBLIC_SITE_DESCRIPTION ??
     "地域医療と専門外来の情報をわかりやすく届けるための病院サイトです。",
@@ -36,7 +36,7 @@ export const siteConfig = {
   contact: {
     phone: "075-000-0000",
     hours: "平日 9:00-17:00",
-    address: "京都市山科区音羽珍事町 00-00",
+    address: "京都市 00-00",
   },
   navigation: [
     { href: "/news/", label: "お知らせ" },
