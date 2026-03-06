@@ -1,4 +1,4 @@
-# Rakuwa Medical Center Web
+# Web
 
 Astro + Sanity で構築する病院サイトのフロントエンドです。`index.astro` にクエリやスタイルを詰め込まず、Sanity 依存は `src/lib/site.ts` と `src/lib/sanity/` に集約しています。
 
